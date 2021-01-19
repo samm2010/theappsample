@@ -1,0 +1,76 @@
+<html>
+
+<body>
+  <form class="gForm" id="input" onchange="sampleStandardDeviation()">
+    1#: <input type="number" name="inputText" autocomplete="off" placeholder="1#" autofocus><br>
+    2#: <input type="number" name="inputText" autocomplete="off" placeholder="2#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    4#: <input type="number" name="inputText" autocomplete="off" placeholder="4#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" name="inputText" autocomplete="off" placeholder="3#"><br>
+    3#: <input type="number" value="0" name="inputText" autocomplete="off" placeholder="3#"><br>
+    <input type="reset" value="Reset">
+  </form>
+  <div id="solution">
+  </div>
+
+  <script>
+    //random arrayfunction
+    function randomPopulation(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    ////////////
+    function sampleStandardDeviation() {
+      var arr = [];
+      var inputs = document.getElementsByName("inputText");
+      var countFilledInputs = 0;
+      for (let k = 0; k < inputs.length; k++) {
+        var inputVals = inputs[k].value;
+        arr.push(inputVals || 0);
+        if (inputs[k].value !== "") {
+          countFilledInputs++;
+        }
+      }
+      randomPopulation(arr);
+      samplePopulation = arr.slice(0, 10);
+      var sum = samplePopulation.reduce(function (a, b) { return parseFloat(a) + parseFloat(b); }, 0);
+      var sampleMean = parseFloat(sum) / parseFloat(10);
+      var sampleSize = samplePopulation.length;
+      if (samplePopulation.length > 9) {
+
+        var sampleMean = parseFloat(sum) / parseFloat(10);
+      //Sample Standard Deviation
+      var SSDprep = 0;
+      for (var l = 0; l < countFilledInputs; l++) {
+        var diff = parseFloat(inputVals) - sampleMean;
+        SSDprep += Math.pow(diff, 2);
+      }
+      var SSD = Math.sqrt(SSDprep / (countFilledInputs - 1));
+      document.getElementById("solution").innerHTML = "No. of Data Entries=" + countFilledInputs +
+        " <br>SampleMean= " + sampleMean + "<br>Sample Size= " + sampleSize + "<br>Sample Standard Deviation:" + SSD;
+    }
+    else {
+      document.getElementById("solution").innerHTML = "Population Sample size is less than 10." 
+    }
+
+      }
+      
+
+
+  </script>
+
+</body>
+
+</html>
